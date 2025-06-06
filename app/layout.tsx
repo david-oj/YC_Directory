@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
 import "./globals.css";
-import 'easymde/dist/easymde.min.css';
+import "easymde/dist/easymde.min.css";
+import { SanityLive } from "@/sanity/lib/live";
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -20,10 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${workSans.variable} antialiased`}
-      >
+      <body className={`${workSans.variable} antialiased`}>
         {children}
+        <SanityLive />
       </body>
     </html>
   );
