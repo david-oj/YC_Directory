@@ -1,20 +1,12 @@
-import StartupCard from "@/components/StartupCard";
-import placeholder from "../placeholder.jpg";
+import StartupCard, { StartupCardType } from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
-const posts = [
-  {
-    _createdAt: new Date(),
-    views: 55,
-    author: { _id: 1, name: "Ojo David Ajibola" },
-    _id: 1,
-    description: "This is a description",
-    image: placeholder,
-    category: "Quantum Computing",
-    title: "Ryzen 14 & Quantum computing",
-  },
-];
 
-const Startups = ({ query }: { query?: string }) => {
+
+const Startups = async ({ query }: { query?: string }) => {
+  const posts = await client.fetch(STARTUPS_QUERY);
+
   return (
     <section className="section_container">
       <p className="text-30-semibold">
