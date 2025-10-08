@@ -4,7 +4,7 @@ import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 const Startups = async ({ query }: { query?: string }) => {
   const params = {search: query || null};
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params: { ...params } });
 
   return (
     <section className="section_container">

@@ -29,6 +29,7 @@ export const createPitch = async (formData: FormData) => {
         _ref: session?.id,
       },
       pitch: formData.pitch,
+      views: 0,
     };
 
     const res = await writeClient.create({ _type: "startup", ...startup });

@@ -8,9 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const View = ({ id }: { id: string }) => {
   const [totalViews, setTotalViews] = useState(0);
-  const [fetchState, setsetFetchState] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("loading");
   const hasRun = useRef(false);
 
   useEffect(() => {
@@ -20,9 +17,7 @@ const View = ({ id }: { id: string }) => {
     const handleViews = async () => {
       try {
         // POST to increment
-        const res = await fetch(`/api/views/${id}`, { method: "POST" });
-
-        if(!res.ok) throw new Error();
+        await fetch(`/api/views/${id}`, { method: "POST" });
 
         // then fetch updated count
         const data = await client
@@ -30,10 +25,8 @@ const View = ({ id }: { id: string }) => {
           .fetch(STARTUP_VIEWS_QUERY, { id });
 
         setTotalViews(data.views);
-        setsetFetchState("success");
       } catch (error) {
         console.error("Failed to update views:", error);
-        setsetFetchState("error");
       }
     };
     handleViews();
@@ -41,7 +34,7 @@ const View = ({ id }: { id: string }) => {
 
   return (
     <div className="view-container">
-      {fetchState === "loading" ? (
+      {totalViews === 0 ? (
         <Skeleton className="view_skeleton" />
       ) : (
         <>
@@ -50,11 +43,7 @@ const View = ({ id }: { id: string }) => {
           </div>
           <p className="view-text">
             <span className="font-black">
-              {fetchState === "error"
-                ? "error"
-                : totalViews > 1
-                  ? `${totalViews} views`
-                  : `${totalViews} view`}
+              {totalViews > 1 ? `${totalViews} views` : `${totalViews} view`}
             </span>
           </p>
         </>
