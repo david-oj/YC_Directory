@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import markdownit from "markdown-it";
-import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+// import { Suspense } from "react";
+// import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 
 const md = markdownit();
@@ -15,6 +15,7 @@ const md = markdownit();
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const post = await client.fetch(STARTUP_BY_QUERY, { id });
+
   if (!post) notFound();
 
   const parsedContent = md.render(post?.pitch || " ");
@@ -72,9 +73,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         {/* TODO: EDITOR SELECTED STARTUPS */}
       </section>
-      <Suspense fallback={<Skeleton className="view_skeleton" />}>
-        <View id={id} />
-      </Suspense>
+      <View id={id} />
     </>
   );
 };
