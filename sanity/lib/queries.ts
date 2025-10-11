@@ -54,3 +54,4 @@ export const AUTHOR_BY_GITHUB_ID_QUERY = defineQuery(`
   bio
   }
   `);
+  _id,
