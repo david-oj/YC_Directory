@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Startup, Author } from "@/sanity/types";
+import { Skeleton } from "./ui/skeleton";
 
 export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
@@ -19,6 +20,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
     category,
     title,
   } = post;
+
   return (
     <li className="startup-card group">
       <div className="flex-between">
@@ -40,8 +42,8 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
         </div>
         <Link href={`/user/${author?.id}`}>
           <Image
-            src="https://placehold.co/48x48"
-            alt="placeholder"
+            src={author?.image?.trimStart() ?? ""}
+            alt={author?.name ?? "user image"}
             width={48}
             height={48}
             className="rounded-full"
@@ -64,5 +66,15 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
     </li>
   );
 };
+
+export const StartupCardSkeleton = () => (
+  <>
+    {Array.from({ length: 4 }).map((_, i) => (
+      <li key={i}>
+        <Skeleton className="startup-card_skeleton" />
+      </li>
+    ))}
+  </>
+);
 
 export default StartupCard;

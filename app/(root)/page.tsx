@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 import Hero from "@/components/Home/Hero";
 import Startups from "@/components/Home/Startups";
 
@@ -9,9 +9,9 @@ export default async function Homepage({
 }) {
   const { query } = await searchParams;
 
-  const session = await auth();
+  // const session = await auth();
 
-  console.log("Session:", session?.id);
+  // console.log("Session:", session?.id);
 
   return (
     <>
